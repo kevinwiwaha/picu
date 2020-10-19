@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\PatientController;
@@ -17,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.dashboard.indexDashboard');
-});
+Route::get('/', [DashboardController::class, 'index']);
 Route::prefix('pasien')->group(function () {
     Route::post('/pdf', [PatientController::class, 'createpdf']);
     Route::get('/tambah-pasien', [PatientController::class, 'create']);

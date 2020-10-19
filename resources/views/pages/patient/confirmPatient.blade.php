@@ -2,16 +2,18 @@
 
 @section('content')
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
 @endif
+
 <div class="container-fluid">
     <form action="{{url('pasien/generate')}}" method="post">
+
         <div class="row">
             <div class="col-2">
                 <div class="d-flex align-items-center justify-content-between">
@@ -22,7 +24,7 @@
                     <h5>Nama RM : </h5>
                     <h3 class="mx-2 text-danger"> {{$data->medicalrecord_number}}</h3>
                 </div>
-                
+
             </div>
             <div class="col-6">
                 <table class="table table-striped">
@@ -38,7 +40,10 @@
 
                         @foreach($diagnosis as $d)
                         <tr>
-                        <input name="diagnosis[]" type="hidden" value="{{$d->diagnosis_name}}" id="medicalrecord_number">
+                            <input name="diagnosis[]" type="hidden" value="{{$d->diagnosis_name}}" id="medicalrecord_number">
+                            <input name="goal[]" type="hidden" value="{{$d->goal}}" id="medicalrecord_number">
+                            <input name="criteria[]" type="hidden" value="{{$d->criteria}}" id="medicalrecord_number">
+
                             <th scope="row">1</th>
                             <td>{{$d->diagnosis_name}}</td>
                             <td class="d-flex">

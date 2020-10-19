@@ -45,12 +45,12 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
-            'patient_name'=>'required',
-            'medicalrecord_number'=>'required',
-            'complaint'=>'required',
-            'diagnosis'=>'required'
+            'patient_name' => 'required',
+            'medicalrecord_number' => 'required',
+            'complaint' => 'required',
+            'diagnosis' => 'required'
         ]);
 
         $diagnosis = Diagnosis::with(['majors', 'minors', 'interventions'])->whereIn('id', $request->diagnosis)->get();
@@ -59,11 +59,13 @@ class PatientController extends Controller
     }
     public function reciepe(ReportRequest $request)
     {
-        
+
         $data = [
             'patient' => $request->patient_name,
             'medrec_num' => $request->medicalrecord_number,
             'diagnosis' => $request->diagnosis,
+            'goal' => implode(",", $request->goal),
+            'criteria' => implode(",", $request->criteria),
             'complaint' => $request->complaint,
             'observasi' => array_unique($request->observasi),
             'terapeutik' => array_unique($request->terapeutik),
@@ -89,12 +91,13 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
-    public function createpdf(Request $request){
+
+    public function createpdf(Request $request)
+    {
         $data = $request->all();
         $data['date'] = Carbon::now();
         $filename = $request->patient . $request->medrec_num . Carbon::now();
-        $pdf = PDF::loadView('pages.patient.reciepePatient',$data);
+        $pdf = PDF::loadView('pages.patient.reciepePatient', $data);
         return $pdf->download($filename . '.pdf');
     }
     public function show($id)
