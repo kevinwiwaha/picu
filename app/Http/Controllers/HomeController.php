@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $patient = Patient::all();
+        // return view('pages.dashboard.indexDashboard', compact('patient'));
         return view('home');
     }
 }

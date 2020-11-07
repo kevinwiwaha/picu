@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DiagnosisRequest;
+use App\Http\Requests\InterventionRequest;
 use App\Models\Intervention;
 use Illuminate\Http\Request;
 
@@ -36,8 +37,10 @@ class InterventionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InterventionRequest $request)
     {
+
+
 
         $intervensi = Intervention::create([
             'intervention_name' => $request->intervention_name,

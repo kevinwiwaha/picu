@@ -69,9 +69,17 @@
 @push('datatable')
 <script>
     $(document).ready(function() {
-        $('.table').DataTable();
+
+        $('.table').DataTable({
+            oLanguage: {
+                "sSearch": "Cari Diagnosis"
+            },
+
+        });
+
     });
 </script>
+
 
 @endpush
 

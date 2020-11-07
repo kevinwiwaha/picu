@@ -4,7 +4,15 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <div class="container-fluid">
     <div class="d-flex">
-
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
     </div>
     <div id="app">
@@ -14,11 +22,17 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nama Intervensi</label>
-                            <input type="text" class="form-control" name="intervention_name" id="intervention_name">
+                            <input value="{{old('intervention_name')}}" type="text" class="form-control" name="intervention_name" id="intervention_name">
+                            @error('intervention_name')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Definisi</label>
-                            <input type="text" class="form-control" name="definition" id="definition">
+                            <input value="{{old('definition')}}" type="text" class="form-control" name="definition" id="definition">
+                            @error('definition')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tipe Intervensi</label>
@@ -43,7 +57,11 @@
                                         <i class="fas mx-1 fa-2x fa-minus-circle text-danger" @click="removeObservasi(k)" v-show="k || ( !k && inputObservasi.length > 1)"></i>
                                         <i class="fas mx-1 fa-2x fa-plus-circle text-success" @click="addObservasi(k)" v-show="k == inputObservasi.length-1"></i>
                                     </span>
+
                                 </div>
+                                @error('observasi.*')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                                 <!-- <div class="form-group form-baru">
                                     <label for="exampleFormControlInput1">Gejala Mayor</label>
                                     <input type="text" class="form-control" name="major[]" id="major">
