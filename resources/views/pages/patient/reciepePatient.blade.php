@@ -51,15 +51,11 @@
 
         <div class="row">
             <div class="col-xs-6">
-
-            </div>
-
-            <div class="col-xs-5">
                 <table style="width: 100%">
                     <tbody>
                         <tr>
                             <th>Diagnosis : </th>
-                            <td class="text-right">
+                            <td class="text-left">
                                 <ul>
                                     <?php $diag = explode('|', $diagnosis); ?>
                                     @foreach($diag as $d)
@@ -95,6 +91,10 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="col-xs-5">
+
 
                 <div style="margin-bottom: 0px">&nbsp;</div>
 
