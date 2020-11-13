@@ -29,7 +29,7 @@
                 <td class="bg-primary text-light">Kriteria Hasil</td>
                 <td>
                     <ul>
-                        <?php $criteria = explode(",", $diagnosis->criteria); ?>
+                        <?php $criteria = explode("|", $diagnosis->criteria); ?>
                         @foreach($criteria as $c)
                         <li>{{$c}}</li>
 

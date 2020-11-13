@@ -60,17 +60,20 @@ class PatientController extends Controller
     public function reciepe(ReportRequest $request)
     {
 
+
+
         $data = [
             'patient' => $request->patient_name,
             'medrec_num' => $request->medicalrecord_number,
             'diagnosis' => $request->diagnosis,
-            'goal' => implode(",", $request->goal),
-            'criteria' => implode(",", $request->criteria),
+            'goal' => implode("|", $request->goal),
+            'criteria' => implode("|", $request->criteria),
             'complaint' => $request->complaint,
             'observasi' => array_unique($request->observasi),
             'terapeutik' => array_unique($request->terapeutik),
             'edukasi' => array_unique($request->edukasi),
-            'kolaborasi' => array_unique($request->kolaborasi)
+            'kolaborasi' => array_unique($request->kolaborasi),
+            'tanggal' => $request->created_at
         ];
         $patient = $data;
         $data['diagnosis'] = implode('|', array_unique($request->diagnosis));
@@ -81,8 +84,9 @@ class PatientController extends Controller
 
 
 
-        Patient::create($data);
-        return view('pages.patient.reportPatient', ['patient' => $patient]);
+        $input = Patient::create($data);
+
+        return view('pages.patient.reportPatient', ['patient' => $patient, 'date' => $input->created_at]);
     }
 
     /**
@@ -94,15 +98,20 @@ class PatientController extends Controller
 
     public function createpdf(Request $request)
     {
+
         $data = $request->all();
+
         $data['date'] = Carbon::now();
         $filename = $request->patient . $request->medrec_num . Carbon::now();
         $pdf = PDF::loadView('pages.patient.reciepePatient', $data);
         return $pdf->download($filename . '.pdf');
     }
-    public function show($id)
+    public function show(Patient $patient)
     {
-        //
+
+
+
+        return view('pages.patient.detailPatient', compact('patient'));
     }
 
     /**
@@ -134,8 +143,10 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+
+        Patient::destroy($request->patient);
+        return redirect('/');
     }
 }

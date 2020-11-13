@@ -61,7 +61,15 @@
                                 <tr>
                                     <td>{{$p->patient}}</td>
                                     <td>{{$p->created_at}}</td>
-                                    <td>-</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="{{url('/pasien/detail', $p->id)}}" class="mr-1 btn btn-md btn-warning">Detail</a>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                                                Hapus
+                                            </button>
+
+                                        </div>
+                                    </td>
 
                                 </tr>
 
@@ -74,18 +82,37 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Pasien</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Anda yakin mau menghapus {{$p->patient}}</p>
+                    <form action="{{url('/pasien/hapus',$p->id)}}" method="post">
+                        @method('delete')
+                        @csrf
+                        <input type="hidden" name="patient" value="{{$p->id}}">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
 
-
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-
+                    <button type="submit" class=" btn btn-md btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
+
 </div>
+
 
 
 
@@ -96,7 +123,9 @@
     $(document).ready(function() {
 
         $('.table').DataTable({
-
+            order: [
+                [1, 'desc']
+            ]
 
         });
 

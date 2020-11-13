@@ -12,14 +12,14 @@ use Illuminate\Support\Carbon; ?>
             <div class="card border-dark" style="max-width: auto;">
                 <div class="card-header">Identitas Pasien</div>
                 <div class="card-body text-dark">
-                    <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Nama : <br></span>{{$patient['patient']}}</h4>
-                    <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Nomor Rekam Medis : <br></span>{{$patient['medrec_num']}}</h4>
-                    <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Tanggal : <br></span>{{$date}}</h4>
+                    <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Nama : <br></span>{{$patient->patient}}</h4>
+                    <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Nomor Rekam Medis : <br></span>{{$patient->medrec_num}}</h4>
+                    <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Tanggal : <br></span>{{$patient->created_at}}</h4>
                     <div class="d-flex">
                         <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Keluhan : <br></span>
 
                         </h4>
-                        <ul class=""><?php $com = explode('|', $patient['complaint']); ?>
+                        <ul class=""><?php $com = explode('|', $patient->complaint); ?>
                             @foreach($com as $c)
                             <li class="my-1">
                                 <div style="font-size: 1rem;" class="badge badge-primary">
@@ -33,7 +33,9 @@ use Illuminate\Support\Carbon; ?>
                         <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Diagnosis : <br></span>
 
                         </h4>
-                        <ul>@foreach($patient['diagnosis'] as $d)
+                        <ul>
+                            <?php $diag = explode('|', $patient->diagnosis); ?>
+                            @foreach($diag as $d)
                             <li class="my-1">
                                 <div style="font-size: 1rem;" class="badge badge-danger">{{$d}}</div>
                             </li>
@@ -44,7 +46,7 @@ use Illuminate\Support\Carbon; ?>
                         <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Tujuan : <br></span>
 
                         </h4>
-                        <ul><?php $goal = explode('|', $patient['goal']); ?>
+                        <ul><?php $goal = explode('|', $patient->goal); ?>
                             @foreach($goal as $g)
                             <li class="my-1">
                                 <div style="word-wrap:break-word;font-size: 1rem;">
@@ -69,7 +71,7 @@ use Illuminate\Support\Carbon; ?>
                         <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Kriteria Hasil : <br></span>
 
                         </h4>
-                        <ul><?php $criteria = explode('|', $patient['criteria']); ?>
+                        <ul><?php $criteria = explode('|', $patient->criteria); ?>
                             @foreach($criteria as $c)
                             <li class="my-1">
                                 <div style="word-wrap:break-word;font-size: 1rem;" class="badge badge-success">
@@ -105,25 +107,29 @@ use Illuminate\Support\Carbon; ?>
                                 <th scope="row">1</th>
                                 <td>
                                     <ul>
-                                        @foreach($patient['observasi'] as $o)
+                                        <?php $observasi = explode('|', $patient->observasi); ?>
+                                        @foreach($observasi as $o)
                                         <li>{{$o}}</li>
                                         @endforeach</ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        @foreach($patient['terapeutik'] as $o)
+                                        <?php $terapeutik = explode('|', $patient->terapeutik); ?>
+                                        @foreach($terapeutik as $o)
                                         <li>{{$o}}</li>
                                         @endforeach</ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        @foreach($patient['edukasi'] as $o)
+                                        <?php $edukasi = explode('|', $patient->edukasi); ?>
+                                        @foreach($edukasi as $o)
                                         <li>{{$o}}</li>
                                         @endforeach</ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        @foreach($patient['kolaborasi'] as $o)
+                                        <?php $kolaborasi = explode('|', $patient->kolaborasi); ?>
+                                        @foreach($kolaborasi as $o)
                                         <li>{{$o}}</li>
                                         @endforeach</ul>
                                 </td>
@@ -135,16 +141,16 @@ use Illuminate\Support\Carbon; ?>
                 </div>
 
                 <form action="/pasien/pdf" method="post">
-                    <input type="hidden" name="patient" value="{{$patient['patient']}}">
-                    <input type="hidden" name="medrec_num" value="{{$patient['medrec_num']}}">
-                    <input type="hidden" name="complaint" value="{{$patient['complaint']}}">
-                    <input type="hidden" name="goal" value="{{$patient['goal']}}">
-                    <input type="hidden" name="criteria" value="{{$patient['criteria']}}">
-                    <input type="hidden" name="diagnosis" value="{{implode('|',$patient['diagnosis'])}}">
-                    <input type="hidden" name="observasi" value="{{implode('|',$patient['observasi'])}}">
-                    <input type="hidden" name="terapeutik" value="{{implode('|',$patient['terapeutik'])}}">
-                    <input type="hidden" name="edukasi" value="{{implode('|',$patient['edukasi'])}}">
-                    <input type="hidden" name="kolaborasi" value="{{implode('|',$patient['kolaborasi'])}}">
+                    <input type="hidden" name="patient" value="{{$patient->patient}}">
+                    <input type="hidden" name="medrec_num" value="{{$patient->medrec_num}}">
+                    <input type="hidden" name="complaint" value="{{$patient->complaint}}">
+                    <input type="hidden" name="goal" value="{{$patient->goal}}">
+                    <input type="hidden" name="criteria" value="{{$patient->criteria}}">
+                    <input type="hidden" name="diagnosis" value="{{$patient->diagnosis}}">
+                    <input type="hidden" name="observasi" value="{{$patient->observasi}}">
+                    <input type="hidden" name="terapeutik" value="{{$patient->terapeutik}}">
+                    <input type="hidden" name="edukasi" value="{{$patient->edukasi}}">
+                    <input type="hidden" name="kolaborasi" value="{{$patient->kolaborasi}}">
                     <input type="hidden" name="date" value="<?php Carbon::now(); ?>">
                     @csrf
 

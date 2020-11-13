@@ -31,10 +31,7 @@
                 <strong>Nama Pasien : {{$patient}}</strong><br>
                 Alamat : {{$medrec_num}}<br>
 
-                Keluhan : <ul>
-                    <?php $comp = explode(',', $complaint); ?>
-                    @foreach($comp as $c)
-                    <li>{{$c}}</li>
+                Keluhan : <ul> <?php $comp = explode(',', $complaint); ?> @foreach($comp as $c) <li>{{$c}}</li>
 
                     @endforeach
                 </ul>
@@ -48,8 +45,43 @@
         </div>
 
         <div style="margin-bottom: 0px">&nbsp;</div>
-
         <div class="row">
+            <div class="col-xs-5">
+                <strong>Diagnosis :</strong>
+                <ul>
+                    <?php $diag = explode('|', $diagnosis); ?>
+                    @foreach($diag as $d)
+                    <li>{{$d}}</li>
+
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                <strong>Tujuan :</strong>
+                <ul>
+                    <?php $go = explode('|', $goal); ?>
+                    @foreach($go as $g)
+                    <li>{{$g}}</li>
+
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                <strong>Kriteria Hasil :</strong>
+                <ul>
+                    <?php $cr = explode('|', $criteria); ?>
+                    @foreach($cr as $c)
+                    <li>{{$c}}</li>
+
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <!-- <div class="row">
             <div class="col-xs-6">
                 <table style="width: 100%">
                     <tbody>
@@ -65,11 +97,12 @@
                                 </ul>
                             </td>
                         </tr>
-                        <tr>
-                            <th>Tujuan : </th>
-                            <td class="text-right">
+                        <tr style="margin-top: 100px;">
+                            <th><strong>Tujuan</strong></th>
+                            <td style="margin-top: 100px;" class="text-left">
+
                                 <ul>
-                                    <?php $go = explode(',', $goal); ?>
+                                    <?php $go = explode('|', $goal); ?>
                                     @foreach($go as $g)
                                     <li>{{$g}}</li>
 
@@ -77,9 +110,9 @@
                                 </ul>
                             </td>
                         </tr>
-                        <tr>
+                        <tr style="margin-bottom: 20px;">
                             <th>Kriteria Hasil : </th>
-                            <td class="text-right">
+                            <td class="text-left">
                                 <ul>
                                     <?php $cr = explode(',', $criteria); ?>
                                     @foreach($cr as $c)
@@ -109,7 +142,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
 
         <table class="table">
             <thead style="background: #F5F5F5;">

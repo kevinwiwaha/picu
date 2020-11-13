@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
 
         $patient = Patient::all();
-        $date = CarbonCarbon::now();
+        $date = CarbonCarbon::now('+07:00');
         return view('pages.dashboard.indexDashboard', [
             'patient' => $patient,
             'date' => $date->isoFormat('MMMM Do YYYY')

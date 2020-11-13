@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->get('/', [DashboardController::class, 'index']);
 Route::middleware('auth')->prefix('pasien')->group(function () {
+    Route::get('/detail/{patient}', [PatientController::class, 'show']);
+    Route::delete('/hapus/{patient}', [PatientController::class, 'destroy']);
     Route::post('/pdf', [PatientController::class, 'createpdf']);
     Route::get('/tambah-pasien', [PatientController::class, 'create']);
     Route::get('/input-pasien', [PatientController::class, 'store']);
