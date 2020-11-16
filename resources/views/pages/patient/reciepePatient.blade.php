@@ -197,9 +197,9 @@
                 </tr>
                 <tr>
                     <td>
-                        <div><strong>Terapeutik</strong></div>
+                        <div><strong>Kolaborasi</strong></div>
                         <ul>
-                            <?php $ter = explode('|', $terapeutik); ?>
+                            <?php $ter = explode('|', $kolaborasi); ?>
                             @foreach($ter as $t)
                             <li>{{$t}}</li>
 

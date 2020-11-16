@@ -19,7 +19,7 @@ use Illuminate\Support\Carbon; ?>
                         <h4 class="text-primary card-title"><span class="text-dark" style="font-size: 1rem;">Keluhan : <br></span>
 
                         </h4>
-                        <ul class=""><?php $com = explode('|', $patient->complaint); ?>
+                        <ul class=""><?php $com = explode(',', $patient->complaint); ?>
                             @foreach($com as $c)
                             <li class="my-1">
                                 <div style="font-size: 1rem;" class="badge badge-primary">
@@ -140,7 +140,7 @@ use Illuminate\Support\Carbon; ?>
                     </table>
                 </div>
 
-                <form action="/pasien/pdf" method="post">
+                <form action="/picu/public/pasien/pdf" method="post">
                     <input type="hidden" name="patient" value="{{$patient->patient}}">
                     <input type="hidden" name="medrec_num" value="{{$patient->medrec_num}}">
                     <input type="hidden" name="complaint" value="{{$patient->complaint}}">
